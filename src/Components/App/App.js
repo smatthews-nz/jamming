@@ -54,11 +54,10 @@ class App extends React.Component {
     //pull the current state and set to a var
     let tracks = [...this.state.playlistTracks]
     //check if the current state includes the track
-    if(!this.state.playlistTracks.includes(track.id)){
-      //if the current state does not include the track, push it to the arr
-      tracks.push(track)
-    } else {
+    if(tracks.includes(track)){
       return;
+    } else {
+      tracks.push(track)
     }
     //update state
     this.setState({playlistTracks: tracks})
