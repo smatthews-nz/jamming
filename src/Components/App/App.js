@@ -49,6 +49,8 @@ class App extends React.Component {
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
+    this.savePlaylist = this.savePlaylist.bind(this);
+    this.search = this.search.bind(this);
   }
   //this method adds a track to a playlist
   addTrack(track){
@@ -76,12 +78,25 @@ class App extends React.Component {
     this.setState({playlistName: name})
   }
 
+  search(term){
+    console.log(term);
+  }
+
+  //this method saves the playlist to Spotify
+  savePlaylist(){
+    //grab the current state
+    let trackURIs = [...this.state.playlistTracks]
+    //return this as an array of uris
+    return trackURIs;
+
+  }
+
   render(){
     return (
       <div>
         <h1>Ja<span className="highlight">mmm</span>ing</h1>
         <div className="App">
-        <SearchBar />
+        <SearchBar onSearch={this.search}/>
       <div className="App-playlist">
         <SearchResults 
         searchResults={this.state.searchResults} 
@@ -91,6 +106,7 @@ class App extends React.Component {
         tracks={this.state.playlistTracks} 
         onRemove={this.removeTrack}
         onNameChange={this.updatePlaylistName}
+        onSave={this.savePlaylist}
         />
         </div>
         </div>
