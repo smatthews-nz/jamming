@@ -7,15 +7,24 @@ let Spotify = {
     getAccessToken: () => {
         if(userToken){
             return userToken
-        } else if(window.location.href.match(/access_token=([^&]*)/) && window.location.href.match(/expires_in=([^&]*)/ )){
-            userToken = window.location.href(/access_token=([^&]*)/)
-            expiresIn = window.location.href(/expires_in=([^&]*)/)
+        } 
+        
+        //check for access token match
+        const accessTokenMatch = window.location.href.match(/access_token=([^&]*)/)
+        const expiresInMatch = window.location.href.match(/expires_in=([^&]*)/ )
+        
+
+        if(accessTokenMatch && expiresInMatch) {
+            accessToken = accessTokenMatch[1]
+            expiresIn = Number(expiresInMatch[1])
 
             window.setTimeout(() => userToken = '', expiresIn * 1000);
             window.history.pushState('Access Token', null, '/');
         } else {
-            window.location.href = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectUri}`
+            const accessUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectUri}`
+            window.location.href = accessUrl
         }
+
     }
 }
 
