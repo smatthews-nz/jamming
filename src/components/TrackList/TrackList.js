@@ -6,18 +6,22 @@ import './TrackList.css';
 
 class TrackList extends Component {
 
-    renderTracks(){
-        this.props.searchResults.map( track => {
-            console.log(track)
-           return <Track />
-    })
- }
-
-
     render() {
+
+        // const searchTracks = this.props.searchResults.map( track => {
+        //     return (
+        //         <Track 
+        //             name={track.name}
+        //             artist={track.artist}
+        //             album={track.album}
+        //             key={track.id}
+        //         />
+        //     )
+        // })
+
         return (
             <div className="TrackList">
-                {this.renderTracks()}
+                {/* {searchTracks} */}
             </div>
         )
     }
