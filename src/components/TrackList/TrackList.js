@@ -30,6 +30,8 @@ class TrackList extends Component {
                         artist={track.artist}
                         album={track.album}
                         key={track.id}
+                        onRemove={this.props.onRemove}
+                        isRemoval={this.props.isRemoval}
                     />
                 )
             }) 
