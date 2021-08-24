@@ -53,6 +53,19 @@ class App extends Component {
         }
       ]
     }
+    this.addTrack = this.addTrack.bind(this);
+  }
+
+  addTrack(track){
+    //check state to see if id exists in playlist already
+    if(this.state.playlistTracks.find(savedSong => savedSong.id === track.id)){
+      return;
+    }
+    //get tracks from state
+    let currentTracks = this.state.playlistTracks;
+    //add tracks to our current saved tracks and push back to state
+    currentTracks.push(track);
+    this.setState({currentTracks})
   }
 
   render() {
@@ -62,13 +75,15 @@ class App extends Component {
         <div className="App">
           <SearchBar />
           <div className="App-playlist">
-            <SearchResults searchResults={this.state.searchResults}/>
-            <PlayList name={this.state.playlistName} trackList={this.state.playlistTracks}/>
+            <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack}/>
+            <PlayList name={this.state.playlistName} playlistTracks={this.state.playlistTracks}/>
           </div>
         </div>
       </div>
     )
   }
+
+  
 }
 
 export default App;

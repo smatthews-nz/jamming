@@ -6,10 +6,12 @@ import './PlayList.css';
 
 class PlayList extends Component {
     render() {
+
+        console.log(this.props.playlistTracks)
         return (
             <div className="Playlist">
                 <input value="New Playlist" />
-                <TrackList trackList={this.props.trackList}/>
+                <TrackList playlistTracks={this.props.playlistTracks}/>
                 <button className="Playlist-save">SAVE TO SPOTIFY</button>
             </div>
         )
