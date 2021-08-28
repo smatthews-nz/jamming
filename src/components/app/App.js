@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import Spotify from '../../util/Spotify';
 import './App.css';
 
 import SearchBar from '../SearchBar/SearchBar';
@@ -11,47 +12,9 @@ class App extends Component {
     super(props);
 
     this.state = {
-      searchResults: [
-        {
-          name: 'Test One',
-          artist: 'Test Artist',
-          album: 'Test Album',
-          id: 1
-        },
-        {
-          name: 'Test Two',
-          artist: 'Test ArtistTwo',
-          album: 'Test AlbumTwo',
-          id: 2
-        },
-        {
-          name: 'Test Three',
-          artist: 'Test ArtistThree',
-          album: 'Test AlbumThree',
-          id: 3
-        }
-      ],
-      playlistName: "Sam's Playlist",
-      playlistTracks: [
-        {
-          name: 'Playlist Test One',
-          artist: 'Playlist Test Artist',
-          album: 'Playlist Test Album',
-          id: 1
-        },
-        {
-          name: 'Playlist Test Two',
-          artist: 'Playlist Test ArtistTwo',
-          album: 'Playlist Test AlbumTwo',
-          id: 2
-        },
-        {
-          name: 'Playlist Test Three',
-          artist: 'Playlist Test ArtistThree',
-          album: 'Playlist Test AlbumThree',
-          id: 3
-        }
-      ]
+      searchResults: [],
+      playlistName: "",
+      playlistTracks: []
     }
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
@@ -80,11 +43,19 @@ class App extends Component {
 
   savePlaylist(){
     //generate track uris
-    let trackURIs = this.state.playlistTracks.map( track => track.uri)
+    const trackUris = this.state.playlistTracks.map(track => track.uri);
+    Spotify.savePlaylist(this.state.playlistName, trackUris).then(() => {
+      this.setState({
+        playlistName: 'New Playlist',
+        playlistTracks: []
+      });
+    });
   }
 
   search(term){
-    console.log(term)
+    Spotify.search(term).then(searchResults => {
+      this.setState({searchResults: searchResults});
+    });
   }
 
   render() {
